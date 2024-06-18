@@ -1,0 +1,17 @@
+spring.application.name: hook-client
+proxy:
+  payment_url: http://localhost:8082
+  service_url: http://localhost:8081
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          okta:
+            clientId: ${client-id}
+            clientSecret: ${client-secret}
+            scope: openid, profile, email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          okta:
+            issuer-uri: https://dev-34210547.okta.com/oauth2/aushq7x5qzeca3q2s5d7

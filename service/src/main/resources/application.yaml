@@ -1,0 +1,9 @@
+spring.application.name: hook-service
+server:
+  port : 8081
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://dev-34210547.okta.com/oauth2/aushq7x5qzeca3q2s5d7/v1/keys
