@@ -21,15 +21,7 @@ public class PaymentController {
 
   @GetMapping
   public String oneMinute(@RequestParam(required = true) int product){
-   payment.pay(product,getUser());
+   payment.pay(product,AuthUtils.getUser());
    return "you have one more minute to access the service";
-  }
-
-  private String getUser(){
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    if (auth.getPrincipal() instanceof Jwt jwt){
-      return jwt.getClaimAsString("name");
-    }
-    return auth.getName();
   }
 }

@@ -20,9 +20,9 @@ public class ServiceController {
   }
 
   @GetMapping("/service")
-  public ResponseEntity<String> getService(){
+  public ResponseEntity<String> getService(@RequestParam int product){
     log.debug("The token is {}",proxy.getToken().getTokenValue());
-    return proxy.service.getForEntity("/service", String.class);
+    return proxy.service.getForEntity("/service?product="+product, String.class);
   }
 
   @GetMapping("/payment")
