@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.NoOpResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -37,12 +38,11 @@ public class ProxyService {
   private RestTemplate template(String url){
     return new RestTemplateBuilder()
         .rootUri(url)
-        .additionalInterceptors(((request, body, execution) -> {
+        .additionalRequestCustomizers(request->{
           var token = this.getToken().getTokenValue();
           log.info("Adding token {} to request",token);
           request.getHeaders().add(HttpHeaders.AUTHORIZATION,"Bearer "+token);
-          return  execution.execute(request, body);
-        }))
+        })
         .build();
   }
 }
